@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+  <category>
+    <pattern>TELL ME ABOUT SOFTWARE DEVELOPER</pattern>
+    <template>
+      <b>Software Developer / Software Engineer</b><br/>
+      • Designs, builds, tests, and maintains software applications or systems.<br/>
+      • Writes and debugs code to implement features and fix issues.<br/>
+      • Uses logic, problem-solving, and software design practices.<br/>
+      • A CS degree supports this role with programming, data structures, and algorithms.
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT SOFTWARE ENGINEER</pattern>
+    <template>
+      <srai>TELL ME ABOUT SOFTWARE DEVELOPER</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT CYBERSECURITY ANALYST</pattern>
+    <template>
+      <b>Cybersecurity Analyst</b><br/>
+      • Protects computer systems and networks from attacks and unauthorized access.<br/>
+      • Monitors logs and alerts, investigates suspicious activity, and supports incident response.<br/>
+      • Helps implement security controls like access rules and secure configurations.<br/>
+      • A CS degree supports this role with networking, operating systems, and security concepts.
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT DATA ANALYST</pattern>
+    <template>
+      <b>Data Analyst / Junior Data Scientist</b><br/>
+      • Uses data to find patterns, trends, and insights.<br/>
+      • Works with SQL and tools such as Python or R to clean and analyze data.<br/>
+      • Communicates findings to help teams make decisions.<br/>
+      • A CS degree helps with programming, algorithms, and data-focused coursework.
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT JUNIOR DATA SCIENTIST</pattern>
+    <template>
+      <srai>TELL ME ABOUT DATA ANALYST</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT SYSTEMS ADMINISTRATOR</pattern>
+    <template>
+      <b>Systems / Network Administrator</b><br/>
+      • Installs, configures, and maintains servers and networks.<br/>
+      • Troubleshoots system performance and connectivity issues.<br/>
+      • Helps ensure systems are secure, reliable, and available to users.<br/>
+      • A CS degree supports this role through operating systems and networking fundamentals.
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT NETWORK ADMINISTRATOR</pattern>
+    <template>
+      <srai>TELL ME ABOUT SYSTEMS ADMINISTRATOR</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT WEB DEVELOPER</pattern>
+    <template>
+      <b>Web / Application Developer</b><br/>
+      • Builds and maintains websites and web applications.<br/>
+      • Uses front-end technologies such as HTML, CSS, and JavaScript.<br/>
+      • Often works with back-end services and databases to support full applications.<br/>
+      • A CS degree supports this role with programming and software development skills.
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT APPLICATION DEVELOPER</pattern>
+    <template>
+      <srai>TELL ME ABOUT WEB DEVELOPER</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>COMPARE SOFTWARE DEVELOPER AND DATA ANALYST</pattern>
+    <template>
+      Both careers use technical skills, but their goals are different.<br/><br/>
+      <b>Software Developer</b>: focuses on building applications and features through coding and testing.<br/><br/>
+      <b>Data Analyst</b>: focuses on analyzing data to discover trends and support decisions.<br/><br/>
+      If you enjoy building software products, software development may fit.
+      If you enjoy patterns, reports, and statistics, data analysis may fit.
+    </template>
+  </category>
+
+</aiml>
