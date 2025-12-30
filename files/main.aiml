@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+  <category>
+    <pattern>HELLO</pattern>
+    <template>
+      Hello! I’m your computer science career helper bot.
+      <br/>
+      I can ask you a few questions about your strengths and preferences
+      and then recommend computer science career options.
+      <br/><br/>
+      Say <b>start career quiz</b> to begin, or say <b>list jobs</b>.
+    </template>
+  </category>
+
+  <category>
+    <pattern>HI</pattern>
+    <template>
+      <srai>HELLO</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>HEY</pattern>
+    <template>
+      <srai>HELLO</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>HELP</pattern>
+    <template>
+      I can help you explore five computing job types that typically require a computer science degree:
+      <br/><br/>
+      1) Software Developer / Software Engineer<br/>
+      2) Cybersecurity Analyst<br/>
+      3) Data Analyst / Junior Data Scientist<br/>
+      4) Systems / Network Administrator<br/>
+      5) Web / Application Developer<br/><br/>
+      Say <b>start career quiz</b> to answer a few questions and get recommendations.
+    </template>
+  </category>
+
+  <category>
+    <pattern>LIST JOBS</pattern>
+    <template>
+      Here are the five job types I can recommend:
+      <br/><br/>
+      • Software Developer / Software Engineer<br/>
+      • Cybersecurity Analyst<br/>
+      • Data Analyst / Junior Data Scientist<br/>
+      • Systems / Network Administrator<br/>
+      • Web / Application Developer<br/><br/>
+      You can say: <b>tell me about cybersecurity analyst</b>.
+    </template>
+  </category>
+
+  <category>
+    <pattern>START CAREER QUIZ</pattern>
+    <template>
+      Great, let’s get started!
+      <br/>
+      I’ll ask a few quick questions. Please answer <b>yes</b> or <b>no</b>.
+      <br/><br/>
+
+      <set name="likes_coding">unknown</set>
+      <set name="likes_math">unknown</set>
+      <set name="likes_security">unknown</set>
+      <set name="likes_systems">unknown</set>
+      <set name="likes_design">unknown</set>
+
+      Do you enjoy writing code and solving programming problems?
+    </template>
+  </category>
+
+  <category>
+    <pattern>*</pattern>
+    <template>
+      I can help you explore computer science career options.
+      <br/>
+      Try: <b>start career quiz</b>, <b>list jobs</b>, or <b>help</b>.
+    </template>
+  </category>
+
+</aiml>
