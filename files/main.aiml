@@ -1,85 +1,533 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0">
 
+  <!-- SECTION 1: GREETING  -->
+
   <category>
     <pattern>HELLO</pattern>
     <template>
-      Hello! I’m your computer science career helper bot.
+      Hey! I am a Computer Science career chatbot. I can give you a quick YES/NO career quiz or explain different CS careers.
+      Would you like to take the quiz? (YES or NO)
+      <think>
+        <set name="topic">QUIZINVITE</set>
+        <set name="quiz">OFF</set>
+      </think>
+    </template>
+  </category>
+
+  <category><pattern>HI</pattern><template><srai>HELLO</srai></template></category>
+  <category><pattern>HEY</pattern><template><srai>HELLO</srai></template></category>
+  <category><pattern>GOOD MORNING</pattern><template><srai>HELLO</srai></template></category>
+  <category><pattern>GOOD AFTERNOON</pattern><template><srai>HELLO</srai></template></category>
+  <category><pattern>GOOD EVENING</pattern><template><srai>HELLO</srai></template></category>
+
+  <!--  SECTION 2: START/RESTART QUIZ ANYTIME -->
+
+  <category>
+    <pattern>CAREER QUIZ</pattern>
+    <template>
+      Great. Answer YES or NO.
+      <think>
+        <set name="topic">CSQUIZ</set>
+        <set name="quiz">ON</set>
+        <set name="q">1</set>
+
+        <set name="a1"></set>
+        <set name="a2"></set>
+        <set name="a3"></set>
+        <set name="a4"></set>
+        <set name="a5"></set>
+
+        <set name="career"></set>
+      </think>
+      <srai>ASK QUESTION</srai>
+    </template>
+  </category>
+
+  <!-- SECTION 3: TOPIC QUIZ INVITE (YES/NO only) -->
+
+  <topic name="QUIZINVITE">
+
+    <category>
+      <pattern>YES</pattern>
+      <template>
+        Great. Answer YES or NO.
+        <think>
+          <set name="topic">CSQUIZ</set>
+          <set name="quiz">ON</set>
+          <set name="q">1</set>
+
+          <set name="a1"></set>
+          <set name="a2"></set>
+          <set name="a3"></set>
+          <set name="a4"></set>
+          <set name="a5"></set>
+
+          <set name="career"></set>
+        </think>
+        <srai>ASK QUESTION</srai>
+      </template>
+    </category>
+
+    <category>
+      <pattern>NO</pattern>
+      <template>
+        No problem. You can ask things like "Tell me about cybersecurity" or "What does a data analyst do?"
+        If you change your mind, type: career quiz
+        <think>
+          <!-- Exit topic mode -->
+          <set name="topic"></set>
+          <set name="quiz">OFF</set>
+        </think>
+      </template>
+    </category>
+
+    <category>
+      <pattern>*</pattern>
+      <template>
+        Please answer YES or NO. Would you like to take the quiz?
+      </template>
+    </category>
+
+  </topic>
+
+  <!-- SECTION 4: ASK QUESTION  -->
+
+  <category>
+    <pattern>ASK QUESTION</pattern>
+    <template>
+      <condition name="q">
+        <li value="1">Question 1 of 5: Do you like the idea of protecting computers, networks, or data from attacks?</li>
+        <li value="2">Question 2 of 5: Do you enjoy working with data to find insights?</li>
+        <li value="3">Question 3 of 5: Do you enjoy building software by writing code, creating features, and debugging?</li>
+        <li value="4">Question 4 of 5: Do you like setting up, maintaining, and troubleshooting computers, servers, or networks?</li>
+        <li value="5">Question 5 of 5: Do you like designing websites/apps that users interact with?</li>
+      </condition>
+      Please answer YES or NO.
+    </template>
+  </category>
+
+  <category>
+    <pattern>ASK OR RESULT</pattern>
+    <template>
+      <condition name="q" value="RESULT">
+        <srai>RECOMMEND</srai>
+      </condition>
+      <srai>ASK QUESTION</srai>
+    </template>
+  </category>
+
+  <!-- SECTION 5: TOPIC CSQUIZ (Quiz handlers) -->
+
+  <topic name="CSQUIZ">
+
+    <category>
+      <pattern>YES</pattern>
+      <template>
+        <think>
+          <condition name="q">
+            <li value="1">
+              <set name="a1">YES</set>
+              <condition name="career" value=""><set name="career">Cybersecurity Analyst</set></condition>
+              <set name="q">2</set>
+            </li>
+
+            <li value="2">
+              <set name="a2">YES</set>
+              <condition name="career" value=""><set name="career">Data Analyst / Junior Data Scientist</set></condition>
+              <set name="q">3</set>
+            </li>
+
+            <li value="3">
+              <set name="a3">YES</set>
+              <condition name="career" value=""><set name="career">Software Developer / Software Engineer</set></condition>
+              <set name="q">4</set>
+            </li>
+
+            <li value="4">
+              <set name="a4">YES</set>
+              <condition name="career" value=""><set name="career">Systems or Network Administrator</set></condition>
+              <set name="q">5</set>
+            </li>
+
+            <li value="5">
+              <set name="a5">YES</set>
+              <condition name="career" value=""><set name="career">Web Developer / Application Developer</set></condition>
+              <set name="q">RESULT</set>
+            </li>
+          </condition>
+        </think>
+        <srai>ASK OR RESULT</srai>
+      </template>
+    </category>
+
+    <category>
+      <pattern>NO</pattern>
+      <template>
+        <think>
+          <condition name="q">
+            <li value="1"><set name="a1">NO</set><set name="q">2</set></li>
+            <li value="2"><set name="a2">NO</set><set name="q">3</set></li>
+            <li value="3"><set name="a3">NO</set><set name="q">4</set></li>
+            <li value="4"><set name="a4">NO</set><set name="q">5</set></li>
+            <li value="5"><set name="a5">NO</set><set name="q">RESULT</set></li>
+          </condition>
+        </think>
+        <srai>ASK OR RESULT</srai>
+      </template>
+    </category>
+
+    <category>
+      <pattern>*</pattern>
+      <template>
+        Please answer YES or NO.
+        <srai>ASK QUESTION</srai>
+      </template>
+    </category>
+
+  </topic>
+
+  <!-- SECTION 6: RECOMMENDATION (Multi-career) -->
+
+  <category>
+    <pattern>RECOMMEND</pattern>
+    <template>
+      <think>
+        <set name="quiz">OFF</set>
+        <set name="topic"></set>
+      </think>
+
+      Thanks. Based on your answers, here are the CS career paths you might enjoy:
       <br/>
-      I can ask you a few questions about your strengths and preferences
-      and then recommend computer science career options.
-      <br/><br/>
-      Say <b>start career quiz</b> to begin, or say <b>list jobs</b>.
+
+      <condition name="a1" value="YES">• Cybersecurity Analyst<br/></condition>
+      <condition name="a2" value="YES">• Data Analyst / Junior Data Scientist<br/></condition>
+      <condition name="a3" value="YES">• Software Developer / Software Engineer<br/></condition>
+      <condition name="a4" value="YES">• Systems or Network Administrator<br/></condition>
+      <condition name="a5" value="YES">• Web Developer / Application Developer<br/></condition>
+
+      <condition name="a1" value="NO">
+        <condition name="a2" value="NO">
+          <condition name="a3" value="NO">
+            <condition name="a4" value="NO">
+              <condition name="a5" value="NO">
+                It looks like none of these stood out as YES yet.
+                A good starting point might be Web Developer / Application Developer or Systems or Network Administrator.
+                <think><set name="career">Web Developer / Application Developer</set></think>
+                <br/>
+              </condition>
+            </condition>
+          </condition>
+        </condition>
+      </condition>
+
+      You can ask: Tell me about cybersecurity (or any career above).
+      Or type: tell me about my result
+      Or type: career quiz to retake the quiz.
+    </template>
+  </category>
+  
+  <!-- CAREER INFO ALIASES: "What does a ___ do?" -->
+
+<!-- Data Analyst / Junior Data Scientist -->
+<category>
+  <pattern>WHAT DOES A DATA ANALYST DO</pattern>
+  <template><srai>TELL ME ABOUT DATA ANALYST</srai></template>
+</category>
+
+<category>
+  <pattern>WHAT DOES A DATA SCIENTIST DO</pattern>
+  <template><srai>TELL ME ABOUT DATA ANALYST</srai></template>
+</category>
+
+<!-- Cybersecurity -->
+<category>
+  <pattern>WHAT DOES A CYBERSECURITY ANALYST DO</pattern>
+  <template><srai>TELL ME ABOUT CYBERSECURITY</srai></template>
+</category>
+
+<category>
+  <pattern>WHAT DOES A CYBER SECURITY ANALYST DO</pattern>
+  <template><srai>TELL ME ABOUT CYBERSECURITY</srai></template>
+</category>
+
+<!-- Software Developer / Software Engineer -->
+<category>
+  <pattern>WHAT DOES A SOFTWARE DEVELOPER DO</pattern>
+  <template><srai>TELL ME ABOUT SOFTWARE ENGINEER</srai></template>
+</category>
+
+<category>
+  <pattern>WHAT DOES A SOFTWARE ENGINEER DO</pattern>
+  <template><srai>TELL ME ABOUT SOFTWARE ENGINEER</srai></template>
+</category>
+
+<!-- Systems / Network Admin -->
+<category>
+  <pattern>WHAT DOES A SYSTEMS ADMINISTRATOR DO</pattern>
+  <template><srai>TELL ME ABOUT SYSTEMS ADMIN</srai></template>
+</category>
+
+<category>
+  <pattern>WHAT DOES A NETWORK ADMINISTRATOR DO</pattern>
+  <template><srai>TELL ME ABOUT SYSTEMS ADMIN</srai></template>
+</category>
+
+<!-- Web / Application Developer -->
+<category>
+  <pattern>WHAT DOES A WEB DEVELOPER DO</pattern>
+  <template><srai>TELL ME ABOUT WEB DEVELOPER</srai></template>
+</category>
+
+<category>
+  <pattern>WHAT DOES AN APPLICATION DEVELOPER DO</pattern>
+  <template><srai>TELL ME ABOUT WEB DEVELOPER</srai></template>
+</category>
+
+<!--  CAREER COMPARISONS
+     - Handles prompts like: "compare data analyst with network administrator" -->
+
+<!-- Data Analyst vs Network Administrator -->
+<category>
+  <pattern>COMPARE DATA ANALYST WITH NETWORK ADMINISTRATOR</pattern>
+  <template>
+    Here is a quick comparison between Data Analyst and Network Administrator:
+    <br/><br/>
+    <b>Primary focus</b><br/>
+    Data Analyst: uses data to find patterns, answer questions, and support decisions.<br/>
+    Network Administrator: keeps networks and systems running reliably and securely.<br/><br/>
+    <b>Typical daily work</b><br/>
+    Data Analyst: SQL queries, spreadsheets, dashboards, reports, basic statistics.<br/>
+    Network Administrator: configuring switches/routers, user access, monitoring, troubleshooting, backups/patching.<br/><br/>
+    <b>Tools you might use</b><br/>
+    Data Analyst: SQL, Excel, BI dashboards, Python (sometimes).<br/>
+    Network Administrator: Active Directory, command line, monitoring tools, network devices, ticketing systems.<br/><br/>
+    <b>If you prefer...</b><br/>
+    Choose Data Analyst if you like interpreting information and telling the story of what the data means.<br/>
+    Choose Network Administrator if you like hands-on troubleshooting and keeping systems stable.
+  </template>
+</category>
+
+<!-- Common synonyms for Network Admin -->
+<category>
+  <pattern>COMPARE DATA ANALYST WITH SYSTEMS ADMINISTRATOR</pattern>
+  <template><srai>COMPARE DATA ANALYST WITH NETWORK ADMINISTRATOR</srai></template>
+</category>
+<category>
+  <pattern>COMPARE DATA ANALYST WITH SYSTEMS ADMIN</pattern>
+  <template><srai>COMPARE DATA ANALYST WITH NETWORK ADMINISTRATOR</srai></template>
+</category>
+<category>
+  <pattern>COMPARE DATA ANALYST WITH NETWORK ADMIN</pattern>
+  <template><srai>COMPARE DATA ANALYST WITH NETWORK ADMINISTRATOR</srai></template>
+</category>
+
+<!-- Software Engineer vs Web Developer -->
+<category>
+  <pattern>COMPARE SOFTWARE ENGINEER WITH WEB DEVELOPER</pattern>
+  <template>
+    Here is a quick comparison between Software Engineer and Web Developer:
+    <br/><br/>
+    <b>Primary focus</b><br/>
+    Software Engineer: builds software systems (apps, APIs, services) and focuses on reliability, structure, testing.<br/>
+    Web Developer: builds user-facing web applications and interfaces (front-end and sometimes back-end).<br/><br/>
+    <b>Typical daily work</b><br/>
+    Software Engineer: coding features, debugging, unit tests, code reviews, working with databases/APIs.<br/>
+    Web Developer: UI layouts, responsive design, front-end logic, API integration, user experience fixes.<br/><br/>
+    <b>If you prefer...</b><br/>
+    Choose Software Engineer if you like building general software and solving deeper logic/system problems.<br/>
+    Choose Web Developer if you like visual output, UI behavior, and fast feedback from what you build.
+  </template>
+</category>
+
+<!-- Cybersecurity Analyst vs Network Administrator -->
+<category>
+  <pattern>COMPARE CYBERSECURITY ANALYST WITH NETWORK ADMINISTRATOR</pattern>
+  <template>
+    Here is a quick comparison between Cybersecurity Analyst and Network Administrator:
+    <br/><br/>
+    <b>Primary focus</b><br/>
+    Cybersecurity Analyst: prevents, detects, and responds to security threats.<br/>
+    Network Administrator: maintains networks/systems, uptime, access, and performance.<br/><br/>
+    <b>Typical daily work</b><br/>
+    Cybersecurity Analyst: monitoring alerts, investigating incidents, vulnerability checks, policies and controls.<br/>
+    Network Administrator: configuring network devices, troubleshooting outages, account management, patching/backups.<br/><br/>
+    <b>If you prefer...</b><br/>
+    Choose Cybersecurity if you like threat-hunting and security investigations.<br/>
+    Choose Network Admin if you like infrastructure troubleshooting and keeping things running.
+  </template>
+</category>
+
+<!-- Data Analyst vs Software Engineer -->
+<category>
+  <pattern>COMPARE DATA ANALYST WITH SOFTWARE ENGINEER</pattern>
+  <template>
+    Here is a quick comparison between Data Analyst and Software Engineer:
+    <br/><br/>
+    <b>Primary focus</b><br/>
+    Data Analyst: answers questions using data and reports insights.<br/>
+    Software Engineer: builds software products and systems with code.<br/><br/>
+    <b>Typical daily work</b><br/>
+    Data Analyst: SQL queries, dashboards, reporting, trend analysis.<br/>
+    Software Engineer: coding features, debugging, testing, code reviews, building APIs/services.<br/><br/>
+    <b>If you prefer...</b><br/>
+    Choose Data Analyst if you like analysis and explaining what the numbers mean.<br/>
+    Choose Software Engineer if you like building and shipping software.
+  </template>
+</category>
+
+<!--  GENERIC FALLBACK: catches other compare requests -->
+
+<category>
+  <pattern>COMPARE * WITH *</pattern>
+  <template>
+    I can compare careers from this list:
+    Software Engineer, Cybersecurity Analyst, Data Analyst, Systems/Network Administrator, Web/Application Developer.
+    <br/>
+    Try one of these formats:
+    <br/>
+    compare data analyst with network administrator
+    <br/>
+    compare software engineer with web developer
+    <br/>
+    compare cybersecurity analyst with network administrator
+  </template>
+</category>
+
+  <!-- SECTION 7: CAREER INFO (anytime) -->
+
+  <category>
+    <pattern>TELL ME ABOUT CYBERSECURITY</pattern>
+    <template>
+      A Cybersecurity Analyst protects systems and data by monitoring alerts, investigating threats, and improving security controls.
+      Common tasks include incident response, vulnerability scanning, access control, and documentation.
     </template>
   </category>
 
   <category>
-    <pattern>HI</pattern>
+    <pattern>TELL ME ABOUT SOFTWARE ENGINEER</pattern>
     <template>
-      <srai>HELLO</srai>
+      A Software Developer / Software Engineer designs and builds software such as applications, APIs, and services.
+      Common tasks include coding, testing, debugging, code reviews, and working with databases.
     </template>
   </category>
 
   <category>
-    <pattern>HEY</pattern>
+    <pattern>TELL ME ABOUT DATA ANALYST</pattern>
     <template>
-      <srai>HELLO</srai>
+      A Data Analyst / Junior Data Scientist turns data into insights.
+      Common tasks include cleaning data, querying with SQL, creating dashboards, basic statistics, and finding trends.
     </template>
   </category>
+
+  <category>
+    <pattern>TELL ME ABOUT SYSTEMS ADMIN</pattern>
+    <template>
+      A Systems or Network Administrator keeps infrastructure running: servers, networks, accounts, backups, and reliability.
+      Common tasks include troubleshooting, patching, monitoring, permissions, and backups.
+    </template>
+  </category>
+
+  <category>
+    <pattern>TELL ME ABOUT WEB DEVELOPER</pattern>
+    <template>
+      A Web Developer / Application Developer builds websites and user-facing applications.
+      Common tasks include responsive pages, front-end UI, connecting to APIs, debugging, and integrating data.
+    </template>
+  </category>
+
+  <!-- SECTION 8: TELL ME ABOUT MY RESULT -->
+
+  <category>
+    <pattern>TELL ME ABOUT MY RESULT</pattern>
+    <template>
+
+      <!-- If no quiz yet (no answers stored) -->
+      <condition name="a1" value="">
+        I do not have a quiz result saved yet. Type career quiz to take the quiz.
+      </condition>
+
+      <!-- Otherwise: pick the first YES in priority order -->
+      <condition name="a1" value="YES">
+        Your primary result is Cybersecurity Analyst.
+        A Cybersecurity Analyst protects systems and data by monitoring alerts, investigating threats, and improving security controls.
+        Common tasks include incident response, vulnerability scanning, access control, and documentation.
+      </condition>
+
+      <condition name="a1" value="NO">
+        <condition name="a2" value="YES">
+          Your primary result is Data Analyst / Junior Data Scientist.
+          This career focuses on turning data into insights.
+          Common tasks include cleaning data, querying with SQL, building dashboards, basic statistics, and finding trends.
+        </condition>
+
+        <condition name="a2" value="NO">
+          <condition name="a3" value="YES">
+            Your primary result is Software Developer / Software Engineer.
+            This career focuses on designing and building software such as applications, APIs, and services.
+            Common tasks include coding, testing, debugging, code reviews, and working with databases.
+          </condition>
+
+          <condition name="a3" value="NO">
+            <condition name="a4" value="YES">
+              Your primary result is Systems or Network Administrator.
+              This career focuses on keeping infrastructure running: servers, networks, accounts, backups, and reliability.
+              Common tasks include troubleshooting, patching, monitoring, permissions, and backups.
+            </condition>
+
+            <condition name="a4" value="NO">
+              <condition name="a5" value="YES">
+                Your primary result is Web Developer / Application Developer.
+                This career focuses on building websites and user-facing applications.
+                Common tasks include responsive pages, front-end UI, connecting to APIs, debugging, and integrating data.
+              </condition>
+
+              <condition name="a5" value="NO">
+                Based on your answers, none of the five areas stood out as YES.
+                If you want to explore anyway, Web Developer / Application Developer or Systems or Network Administrator are good starting points.
+              </condition>
+            </condition>
+          </condition>
+        </condition>
+      </condition>
+
+    </template>
+  </category>
+
+  <!-- SECTION 9: GLOBAL YES/NO  -->
+
+  <category>
+    <pattern>YES</pattern>
+    <template>
+      <condition name="quiz" value="ON">
+        Please answer YES or NO.
+        <srai>ASK QUESTION</srai>
+      </condition>
+      If you want to take the career quiz, type: career quiz
+      Or ask about a career like: Tell me about cybersecurity
+    </template>
+  </category>
+
+  <category>
+    <pattern>NO</pattern>
+    <template>
+      <condition name="quiz" value="ON">
+        Please answer YES or NO.
+        <srai>ASK QUESTION</srai>
+      </condition>
+      No worries. You can ask about a career like: Tell me about software engineer
+      Or type career quiz to take the quiz.
+    </template>
+  </category>
+
+  <!-- SECTION 10: HELP -->
 
   <category>
     <pattern>HELP</pattern>
     <template>
-      I can help you explore five computing job types that typically require a computer science degree:
-      <br/><br/>
-      1) Software Developer / Software Engineer<br/>
-      2) Cybersecurity Analyst<br/>
-      3) Data Analyst / Junior Data Scientist<br/>
-      4) Systems / Network Administrator<br/>
-      5) Web / Application Developer<br/><br/>
-      Say <b>start career quiz</b> to answer a few questions and get recommendations.
+      Type career quiz to take the YES/NO quiz.
+      Or ask: Tell me about cybersecurity, software engineer, data analyst, systems admin, or web developer.
     </template>
   </category>
 
-  <category>
-    <pattern>LIST JOBS</pattern>
-    <template>
-      Here are the five job types I can recommend:
-      <br/><br/>
-      • Software Developer / Software Engineer<br/>
-      • Cybersecurity Analyst<br/>
-      • Data Analyst / Junior Data Scientist<br/>
-      • Systems / Network Administrator<br/>
-      • Web / Application Developer<br/><br/>
-      You can say: <b>tell me about cybersecurity analyst</b>.
-    </template>
-  </category>
-
-  <category>
-    <pattern>START CAREER QUIZ</pattern>
-    <template>
-      Great, let’s get started!
-      <br/>
-      I’ll ask a few quick questions. Please answer <b>yes</b> or <b>no</b>.
-      <br/><br/>
-
-      <set name="likes_coding">unknown</set>
-      <set name="likes_math">unknown</set>
-      <set name="likes_security">unknown</set>
-      <set name="likes_systems">unknown</set>
-      <set name="likes_design">unknown</set>
-
-      Do you enjoy writing code and solving programming problems?
-    </template>
-  </category>
-
-  <category>
-    <pattern>*</pattern>
-    <template>
-      I can help you explore computer science career options.
-      <br/>
-      Try: <b>start career quiz</b>, <b>list jobs</b>, or <b>help</b>.
-    </template>
-  </category>
-  
 </aiml>
